@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function addRow() {
+            let name = $('#name').val();
+            let surname = $('#surname').val();
+            let description = $('#description').val();
+            let messeng = "Не заполнены следующие данные: \n"
+            let warning = "";
+            if (name === "") {
+                warning += "Имя \n";
+            }
+            if (surname === "") {
+                warning += "Фамилия \n";
+            }
+            if (description === "") {
+                warning += "Описание \n";
+            }
+            if (warning !== "") {
+                alert(messeng + warning +checkedValues);
+            } else {
+                $('#table tr:last').after('<tr><td>' + "1" + '</td><td>'
+                    + name + '</td><td>'
+                    + surname + '</td><td>'
+                    + description + '</td></tr>');
+            }
+        }
+    </script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <h3>База сейсмических элементов</h1>
+        <p>Первый проект</p>
+    
+        <form>
+            <div class="form-group">
+                <label for="name">Название</label>
+                <input type="text" class="form-control" id="name" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="surname">Фото</label>
+                <input type="text" class="form-control" id="surname" aria-describedby="emailHelp">
+            </div>
+            <div class="form-group">
+                <label for="description">Описание</label>
+                <input type="text" class="form-control" id="description">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="addRow()">Add row</button>
+        </form>
+    </div>
+
+    <table class="table" id = "table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Название</th>
+            <th scope="col">Фото</th>
+            <th scope="col">Описание</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</body>
+</html>
