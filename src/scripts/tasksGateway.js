@@ -1,4 +1,4 @@
-const baseUrl = 'https://localhost:8080/detail';
+const baseUrl = 'http://localhost:8080/detail';
 
 export const createTask = taskData =>
     fetch(baseUrl, {
@@ -10,5 +10,9 @@ export const createTask = taskData =>
     });
 
     export const getTasksList = () =>
-    fetch(baseUrl)
+    fetch(baseUrl, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        }})
         .then(resoponse => resoponse.json());
