@@ -1,6 +1,6 @@
 import { getTasksList } from './tasksGateway.js';
 
-const tableElem = document.querySelector('table');
+const tableElem = document.querySelector('tbody');
 
 const createListItem = (data) => {
 
