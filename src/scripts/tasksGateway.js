@@ -9,10 +9,15 @@ export const createTask = taskData =>
         body: JSON.stringify(taskData)
     });
 
-    export const getTasksList = () =>
+export const getTasksList = () =>
     fetch(baseUrl, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
         }})
         .then(resoponse => resoponse.json());
+
+export const deleteTask = (id) =>
+     fetch(`${baseUrl}/${id}`, {
+            method: 'DELETE',
+        });

@@ -1,35 +1,40 @@
-import { getTasksList } from './tasksGateway.js';
+import { getItem } from './storaje.js';
+import {onDeleteTask} from './deleteTask.js';
 
-const tableElem = document.querySelector('tbody');
+let createListItem = (result) => {
 
-const createListItem = (data) => {
-
- data.then(result => {
     var number = 0;
-    for (const object of result) {
+    let tableElem = document.getElementById('tableDetail');
+    tableElem.innerHTML = "";
+    for (let object of result) {
         number++;
-        const trElem = document.createElement('tr');
-        const tdId = document.createElement('td');
+        let trElem = document.createElement('tr');
+        let tdId = document.createElement('th');
         const tdName = document.createElement('td');
+        const butDelete = document.createElement('button');
+        butDelete.id = 'button_delete';
+        butDelete.className = 'btn btn-primary';
+        butDelete.addEventListener('click', onDeleteTask);
 
-        const name = object.name;
-        const id = number;
+        const uuid = object.id;
+
+        trElem.id = uuid;
+        let name = object.name;
+        let id = number;
  
         tdId.innerHTML = id;
         tdName.innerHTML = name;
+
         trElem.appendChild(tdId);
-        
         trElem.appendChild(tdName);
+        trElem.appendChild(butDelete);
         
         tableElem.append(trElem);
     }
-        });
 }
 
 export const renderTasks = () => {
-const tasksList = getTasksList() || [];
+let tasksList = getItem('taskList') || [];
 
-const tasksElems = createListItem(tasksList);
-console.log(tasksElems);
-
+let tasksElems = createListItem(tasksList);
 }
