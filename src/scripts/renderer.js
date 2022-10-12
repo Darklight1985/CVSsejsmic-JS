@@ -11,6 +11,7 @@ let createListItem = (result) => {
         let trElem = document.createElement('tr');
         let tdId = document.createElement('th');
         const tdName = document.createElement('td');
+        tdName.contentEditable = true;
         const butDelete = document.createElement('button');
         butDelete.id = 'button_delete';
         butDelete.className = 'btn btn-primary';
