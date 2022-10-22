@@ -1,6 +1,7 @@
 import { createTask, getTasksList } from './tasksGateway.js';
 import { setItem }  from './storaje.js';
 import { renderTasks } from './renderer.js';
+import { checkTokenStorage } from './storaje.js';
 
 
 export const onCreateTask = () => {
@@ -11,22 +12,25 @@ export const onCreateTask = () => {
     const name = taskTitleInputElem.value;
     const roundDate = detailRoundDate.value;
 
-    console.log(name);
-    if (!name) {
-        return;
-    }
+    console.log("Обработка");
+    console.log(name, roundDate);
+
     taskTitleInputElem.value = '';
+    detailRoundDate.value ='';
+
+    let access_token = checkTokenStorage();
 
     const newTask = {
         name,
-        roundDate
+        roundDate,
+        access_token
     };
 
 
     createTask(newTask)
     .then(getTasksList)
-    .then(console.log("Получили список"))
     .then(newTaskList => {
+        console.log(newTaskList)
         setItem('taskList', newTaskList);
         renderTasks();
     });

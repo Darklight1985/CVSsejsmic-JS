@@ -9,6 +9,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
     </script>
+        <script src="src/scripts/index.js" type="module"></script>   
     <title>Document</title>
 </head>
 <body>
@@ -28,7 +29,6 @@
         <tbody id = "tableDetail">
         </tbody>
     </table>
-    <script src="src/scripts/index.js" type="module"></script>   
 </body>
 
 <nav aria-label="Page navigation example">
@@ -56,7 +56,10 @@
         <input type="date" class="form-control" id="dateRoundInput" style="width: 200px;">
     </div>
     <div class="form-group mb-2">
-    <button type="button" class="btn btn-primary">Add row</button>
+    <button type="button" class="btn btn-primary" id = "createBtn">Add row</button>
+    </div>
+    <div class="form-group mb-2">
+        <button type="button" class="btn btn-primary" id = "takeBtn">Add row</button>
     </div>
 </form>
 
