@@ -12,12 +12,18 @@ let createListItem = (result) => {
         let tdName = document.createElement('td');
         let tdRoundDate = document.createElement('td');
         let tdCreateDate = document.createElement('td');
+        let tdDelete = document.createElement('td');
+     //   let tdRoundEdit = document.createElement('input');
+
+        tdRoundDate.contentEditable =true;
         tdName.contentEditable = true;
+        
 
         const butDelete = document.createElement('button');
         butDelete.id = 'button_delete';
         butDelete.className = 'btn btn-danger btn-sm';
         butDelete.addEventListener('click', onDeleteTask);
+        tdDelete.appendChild(butDelete);
 
         const uuid = object.id;
 
@@ -36,7 +42,7 @@ let createListItem = (result) => {
         trElem.appendChild(tdName);
         trElem.appendChild(tdRoundDate);
         trElem.appendChild(tdCreateDate);
-        trElem.appendChild(butDelete);
+        trElem.appendChild(tdDelete);
         
         tableElem.append(trElem);
     }

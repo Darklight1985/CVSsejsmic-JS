@@ -67,10 +67,32 @@ export const takeToken = userData =>
         return reader.read();
     }).then(({value, done}) => {
     var string = JSON.parse(new TextDecoder().decode(value));
-  //  setItem('accessToken', string.access_token);
-   // setItem('refreshToken', string.refresh_token);
+
     return string;
     });
 
+
+    export const logout = () =>
+    {   setItem('accessToken', []);
+        setItem('refreshToken', []);
+        window.location.href = 'login.html'
+    }
+
+    export const hideColumn = e => {
+        const allColumenEl = document.getElementById('allShow');
+        allColumenEl.checked = false;
+       const columnHide = e.target.closest('th');
+       columnHide.style.display = 'none';
+    }
+
+
+    export const showAllColumn = () => {
+        const table = document.getElementById('headTable');
+        for (let node of table.children[0].children){
+        node.style.display = '';
+        }
+        const checkColumns = document.getElementById('checkName');
+        checkColumns.checked = false;
+    }
          
 

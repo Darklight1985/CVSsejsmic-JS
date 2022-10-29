@@ -22,7 +22,7 @@ export const onTakeLogin = () => {
     takeToken(newUser).then(res => {
     setItem('accessToken', res.access_token);
     setItem('refreshToken', res.refresh_token);})
-    .then(setTimeout(() => {window.location.href = 'index.html'}, 500));
+    .then(setTimeout(() => {window.location.href = 'index.html'}, 700));
     
     //.then(window.location.href = 'index.html');
     
