@@ -5,7 +5,7 @@ import { checkTokenStorage } from './storaje.js';
 
 
 export const onCreateTask = () => {
-    console.log("Создание детали")
+
     const taskTitleInputElem = document.getElementById('nameInput');
     const detailRoundDate = document.getElementById('dateRoundInput')
 

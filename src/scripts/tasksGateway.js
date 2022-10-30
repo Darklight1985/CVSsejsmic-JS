@@ -18,10 +18,11 @@ export const createTask = taskData =>
         }
         if (res.status == 403) {
             console.log(res);
-            setTimeout(() => {window.location.href = 'login.html'}, 1000);
+            window.location.href = 'login.html';
             throw new Error ("Время сессии истекло")
-        }
+        } else {
         return res.json();}
+    }
     ).then(json => {})
     .catch((res) => 
         alert(res));
@@ -37,13 +38,13 @@ export const getTasksList = () =>
         .then(res => {
             if (res.status == 403) {
                 console.log(res);
-                setTimeout(() => {window.location.href = 'login.html'}, 1000);
+                window.location.href = 'login.html';
                 throw new Error ("Время сессии истекло")
-            }
+            } else {
             return res.json();
+            }
         })
         .then(response => {
-            console.log(response);
            return response;
         }).catch((res) => alert(res));
 
@@ -53,7 +54,15 @@ export const deleteTask = (id) =>
             headers: {
                 'Authorization' :'Bearer ' + checkTokenStorage(),
             }
-        }).catch(res => alert(res.json()));
+        }).then(res => 
+            {
+                if (res.status == 403) {
+                    setTimeout(()=>window.location.href = 'login.html', 1000)
+                    throw new Error ("Время сессии истекло")
+                } else {
+                    return;
+                }
+            }).catch(res => alert(res));
 
 export const takeToken = userData => 
     fetch(`${baseUrl}/login` + `?username=` + `${userData.username}` + `&password=`+ `${userData.password}`, {
@@ -70,6 +79,30 @@ export const takeToken = userData =>
 
     return string;
     });
+
+
+    export const createUser = userData => 
+    fetch(`${baseUrl}/user`, {
+        method: 'POST',
+        headers: {
+            'Authorization' :'Bearer ' + userData.access_token,
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(userData)
+    }).then(res => {
+        if (res.status == 400) {
+            console.log(res);
+            throw new Error ("Не правильный запрос")
+        }
+        if (res.status == 403) {
+            console.log(res);
+            window.location.href = 'login.html';
+            throw new Error ("Время сессии истекло")
+        }
+        return res.json();}
+    )
+    .catch((res) => 
+        alert(res));
 
 
     export const logout = () =>
@@ -93,6 +126,18 @@ export const takeToken = userData =>
         }
         const checkColumns = document.getElementById('checkName');
         checkColumns.checked = false;
+    }
+
+
+    export const showAdddates = () => {
+        const form = document.getElementById('formCreateDetail');
+        let divElem = document.createElement('div');
+        divElem.id = "addData";
+        let labelEl = document.createElement('label');
+        labelEl.innerText = 'новый';
+        divElem.appendChild(labelEl);
+
+        form.parentNode.insertBefore(divElem, form.nextSibling);
     }
          
 

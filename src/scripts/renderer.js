@@ -1,5 +1,6 @@
 import { getItem } from './storaje.js';
 import {onDeleteTask} from './deleteTask.js';
+import {showAdddates} from './tasksGateway.js';
 
 let createListItem = (result) => {
     var number = 0;
@@ -17,6 +18,7 @@ let createListItem = (result) => {
 
         tdRoundDate.contentEditable =true;
         tdName.contentEditable = true;
+        tdName.addEventListener('click', showAdddates);
         
 
         const butDelete = document.createElement('button');
