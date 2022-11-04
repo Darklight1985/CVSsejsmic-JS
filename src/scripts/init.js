@@ -3,6 +3,7 @@ import { logout } from "./tasksGateway.js";
 import { hideColumn } from "./tasksGateway.js";
 import { showAllColumn } from "./tasksGateway.js";
 import { onCreateUser } from "./createUser.js";
+import { getListDetails } from "./tasksGateway.js";
 
 export const initTodoListHandlers = () => {
     const createBtnElem = document.getElementById('createBtn');
@@ -15,5 +16,9 @@ export const initTodoListHandlers = () => {
     checkShowColums.addEventListener('click', showAllColumn);
     const createUserBtnElem = document.getElementById('createUser');
     createUserBtnElem.addEventListener('click', onCreateUser);
+    const checkBoxName = document.getElementById('stateName');
+    checkBoxName.addEventListener('click', getListDetails);
+    const checkBoxRoundDate = document.getElementById('stateRoundDate');
+    checkBoxRoundDate.addEventListener('click', getListDetails);
 }
 

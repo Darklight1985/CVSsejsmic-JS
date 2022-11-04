@@ -1,5 +1,4 @@
 import { createTask, getTasksList } from './tasksGateway.js';
-import { setItem }  from './storaje.js';
 import { renderTasks } from './renderer.js';
 import { checkTokenStorage } from './storaje.js';
 
@@ -27,11 +26,9 @@ export const onCreateTask = () => {
     };
 
 
-    createTask(newTask)
-    .then(getTasksList)
-    .then(newTaskList => {
-        console.log(newTaskList)
-        setItem('taskList', newTaskList);
-        renderTasks();
-    });
+    console.log(newTask);
+
+    createTask(newTask).then(res => {
+        console.log(res);
+        renderTasks()});
 };

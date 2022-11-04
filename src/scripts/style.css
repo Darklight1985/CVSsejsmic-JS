@@ -1,0 +1,93 @@
+div {
+    font-size: 20px;
+  }
+  .arrows {
+    position: relative;
+    cursor: pointer;
+  }
+  #stateName {
+    display: none;
+  }
+  #stateName + .arrows:after {
+    content: ' ';
+    position: absolute;
+    left: 10px;
+    bottom: -16px;
+    border: 10px solid transparent;
+    border-top: 10px solid green;
+    border-width: 12px 7px;
+  }
+  #stateName:checked + .arrows:after {
+    content: ' ';
+    position: absolute;
+    left: 10px;
+    bottom: -16px;
+    border: 10px solid transparent;
+    border-top: 10px solid gray;
+    border-width: 12px 7px;
+  }
+  #stateName + .arrows:before {
+    content: ' ';
+    position: absolute;
+    left: 10px;
+    bottom: 12px;
+    border: 10px solid transparent;
+    border-bottom: 10px solid gray;
+    border-width: 12px 7px;
+  }
+  #stateName:checked + .arrows:before {
+    content: ' ';
+    position: absolute;
+    left: 10px;
+    bottom: 12px;
+    border: 10px solid transparent;
+    border-bottom: 10px solid green;
+    border-width: 12px 7px;
+  }
+
+  div {
+    font-size: 20px;
+  }
+  .arrows {
+    position: relative;
+    cursor: pointer;
+  }
+  #stateRoundDate {
+    display: none;
+  }
+  #stateRoundDate + .arrows:after {
+    content: ' ';
+    position: absolute;
+    left: 10px;
+    bottom: -16px;
+    border: 10px solid transparent;
+    border-top: 10px solid green;
+    border-width: 12px 7px;
+  }
+  #stateRoundDate:checked + .arrows:after {
+    content: ' ';
+    position: absolute;
+    left: 10px;
+    bottom: -16px;
+    border: 10px solid transparent;
+    border-top: 10px solid gray;
+    border-width: 12px 7px;
+  }
+  #stateRoundDate + .arrows:before {
+    content: ' ';
+    position: absolute;
+    left: 10px;
+    bottom: 12px;
+    border: 10px solid transparent;
+    border-bottom: 10px solid gray;
+    border-width: 12px 7px;
+  }
+  #stateRoundDate:checked + .arrows:before {
+    content: ' ';
+    position: absolute;
+    left: 10px;
+    bottom: 12px;
+    border: 10px solid transparent;
+    border-bottom: 10px solid green;
+    border-width: 12px 7px;
+  }

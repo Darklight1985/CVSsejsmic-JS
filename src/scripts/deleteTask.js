@@ -8,7 +8,7 @@ export const onDeleteTask = e => {
     console.log(taskId);
 
     deleteTask(taskId)
-        .then(getTasksList)
+        .then(getTasksList({offset:10, page:0, size:10, paged:true, sort:'name%2CASC'}))
         .then(newTasksList => {
             setItem('taskList', newTasksList);
             renderTasks();

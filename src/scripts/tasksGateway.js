@@ -1,5 +1,6 @@
 import { setItem } from "./storaje.js";
 import { checkTokenStorage } from "./storaje.js";
+import { createListItem } from "./renderer.js";
 
 const baseUrl = 'http://localhost:8080';
 
@@ -28,13 +29,14 @@ export const createTask = taskData =>
         alert(res));
 
 
-export const getTasksList = () => 
-    fetch(`${baseUrl}/detail`, {
+export const getTasksList = (pageable) => 
+    fetch(`${baseUrl}/detail` + `?page=` + `${pageable.page}` + `&size=`+ `${pageable.size}` + '&sort=' + `${pageable.sort}`, {
         method: 'GET',
         headers: {
             'Authorization' :'Bearer ' + checkTokenStorage(),
             'Content-Type': 'application/json;charset=utf-8'
-        }})
+        }
+       })
         .then(res => {
             if (res.status == 403) {
                 console.log(res);
@@ -63,6 +65,26 @@ export const deleteTask = (id) =>
                     return;
                 }
             }).catch(res => alert(res));
+
+
+ export const updateDetail = (newDetail) => 
+     fetch(`${baseUrl}/detail/${newDetail.id}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization' :'Bearer ' + checkTokenStorage(),
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(newDetail)
+        }).then(res => 
+            {
+                if (res.status == 403) {
+                    setTimeout(()=>window.location.href = 'login.html', 10000)
+                    throw new Error ("Время сессии истекло")
+                } else {
+                    return res.json();}
+            }).then(json => {}).catch(res => alert(res));
+        
+        
 
 export const takeToken = userData => 
     fetch(`${baseUrl}/login` + `?username=` + `${userData.username}` + `&password=`+ `${userData.password}`, {
@@ -115,13 +137,18 @@ export const takeToken = userData =>
         const allColumenEl = document.getElementById('allShow');
         allColumenEl.checked = false;
        const columnHide = e.target.closest('th');
+       var classCol = columnHide.className;
+        var columns = document.getElementsByClassName(classCol);
+        for (let node of columns) {
+            node.style.display = 'none';
+        }
        columnHide.style.display = 'none';
     }
 
 
     export const showAllColumn = () => {
-        const table = document.getElementById('headTable');
-        for (let node of table.children[0].children){
+        var columns = document.getElementsByClassName('name');
+        for (let node of columns){
         node.style.display = '';
         }
         const checkColumns = document.getElementById('checkName');
@@ -138,6 +165,31 @@ export const takeToken = userData =>
         divElem.appendChild(labelEl);
 
         form.parentNode.insertBefore(divElem, form.nextSibling);
+    }
+
+    export const getPageable = e => {
+         const checkBoxName = e.target;
+         const nameCheck = checkBoxName.id.replace("state", "");
+         let sorts = '';
+         if (checkBoxName.checked) {
+            sorts = nameCheck + '%2CASC';
+         } else 
+         {
+            sorts = nameCheck + '%2CDESC';
+         }
+         return {offset:10, page:0, size:20, paged:true, sort:sorts};
+    }
+
+    export const getListDetails = (e) => {
+     let cheks = [document.getElementById('stateName'), document.getElementById('stateRoundDate')];
+     for (var elem in cheks) {
+        if (cheks[elem].id != e.target.id) {
+            cheks[elem].checked = false;     
+        }
+     }
+     let pageable = getPageable(e);
+     console.log(pageable);
+     getTasksList(pageable).then(newTaskList => {createListItem(newTaskList.content)});
     }
          
 
