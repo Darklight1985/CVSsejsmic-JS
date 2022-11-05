@@ -167,29 +167,63 @@ export const takeToken = userData =>
         form.parentNode.insertBefore(divElem, form.nextSibling);
     }
 
-    export const getPageable = e => {
-         const checkBoxName = e.target;
-         const nameCheck = checkBoxName.id.replace("state", "");
-         let sorts = '';
-         if (checkBoxName.checked) {
-            sorts = nameCheck + '%2CASC';
-         } else 
-         {
-            sorts = nameCheck + '%2CDESC';
-         }
-         return {offset:10, page:0, size:20, paged:true, sort:sorts};
+    export const getPageable = () => {
+         let str = getSort();
+         let pageNumber = getPage() - 1;
+         return {offset:10, page:pageNumber, size:10, paged:true, sort:str};
     }
 
-    export const getListDetails = (e) => {
-     let cheks = [document.getElementById('stateName'), document.getElementById('stateRoundDate')];
-     for (var elem in cheks) {
-        if (cheks[elem].id != e.target.id) {
-            cheks[elem].checked = false;     
+    export const getSort = () => {
+        let cheks = [document.getElementById('stateName'), document.getElementById('stateRoundDate')];
+        let strSort = "name%2CASC";
+        for (var elem in cheks) {
+           if (cheks[elem].checked == true) {
+               strSort = cheks[elem].id.replace("state", "") + '%2CASC';    
+           }
         }
-     }
-     let pageable = getPageable(e);
+        return strSort;
+    }
+
+    export const changeSort = (e) => {
+        let cheks = [document.getElementById('stateName'), document.getElementById('stateRoundDate')];
+        for (var elem in cheks) {
+           if (cheks[elem].id != e.target.id) {
+               cheks[elem].checked = false;     
+           }
+        };
+        getListDetails();
+    }
+
+    export const getPage = () => {
+        let pageNave = document.getElementById('pagesDetails');
+        let pages = pageNave.childNodes;
+        let number = 0;
+        for (let i = 0; i < pages.length; i++) {
+              if (pages[i].className == 'page-item disabled')
+              {
+                 number = pages[i].firstChild.innerText;
+              }
+         };
+         console.log(number);
+         return number;
+    }
+
+    export const changePage = (e) => {
+        console.log(e.target.innerText);
+        let pageNave = document.getElementById('pagesDetails');
+        let pages = pageNave.childNodes;
+        let number = e.target.innerText; 
+        for (let i = 0; i < pages.length; i++) {
+            pages[i].className = 'page-item'; 
+        };
+        pages[number - 1].className = 'page-item disabled';
+        getListDetails();
+    }
+
+    export const getListDetails = () => {
+     let pageable = getPageable();
      console.log(pageable);
-     getTasksList(pageable).then(newTaskList => {createListItem(newTaskList.content)});
+     getTasksList(pageable).then(newTaskList => {createListItem(newTaskList)});
     }
          
 

@@ -1,5 +1,6 @@
 import { updateDetail } from "./tasksGateway.js";
 import { renderTasks } from "./renderer.js";
+import { getPageable } from "./tasksGateway.js";
 
 export const onUpdateTask = (e) => {
 
@@ -18,5 +19,6 @@ export const onUpdateTask = (e) => {
     console.log(newTask);
     updateDetail(newTask).then(res => {
         console.log(res);
-        renderTasks()});
+        let pageable = getPageable();
+        renderTasks(pageable)});
 };

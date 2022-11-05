@@ -1,6 +1,7 @@
 import { createTask, getTasksList } from './tasksGateway.js';
 import { renderTasks } from './renderer.js';
 import { checkTokenStorage } from './storaje.js';
+import { getPageable } from './tasksGateway.js';
 
 
 export const onCreateTask = () => {
@@ -25,10 +26,8 @@ export const onCreateTask = () => {
         access_token
     };
 
-
-    console.log(newTask);
-
     createTask(newTask).then(res => {
         console.log(res);
-        renderTasks()});
+        let pageable = getPageable();
+        renderTasks(pageable)});
 };

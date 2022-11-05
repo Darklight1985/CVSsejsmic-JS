@@ -1,22 +1,27 @@
 import {onDeleteTask} from './deleteTask.js';
-import {showAdddates} from './tasksGateway.js';
 import {getTasksList} from './tasksGateway.js';
 import { onUpdateTask } from './updateDetail.js';
+import { getPageable } from './tasksGateway.js';
+import { getPage } from './tasksGateway.js';
+import { changePage } from './tasksGateway.js';
 
-export const renderTasks = () => {
-    const pageable = {offset:10, page:0, size:10, paged:true, sort:'name%2CASC'};
+export const renderTasks = (pageOut) => {
+    let pageable = pageOut;
+    if (pageable == null) {
+    pageable = getPageable();
+    }
     getTasksList(pageable).then(newTaskList => {
         console.log('данные с сервера: ' + newTaskList);
-        console.log(newTaskList);
-        createListItem(newTaskList.content)});
+        createListItem(newTaskList)});
     }
 
 
 export let createListItem = (result) => {
+    console.log(result);
     var number = 0;
     let tableElem = document.getElementById('tableDetail');
     tableElem.innerHTML = "";
-    for (let object of result) {
+    for (let object of result.content) {
         number++;
         let trElem = document.createElement('tr');
         let tdId = document.createElement('th');
@@ -30,8 +35,6 @@ export let createListItem = (result) => {
         tdRoundDate.contentEditable =true;
         tdName.contentEditable = true;
         tdName.className = 'name';
-        tdName.addEventListener('click', showAdddates);
-        
 
         const butDelete = document.createElement('button');
         const butRed = document.createElement('button');
@@ -70,4 +73,47 @@ export let createListItem = (result) => {
         
         tableElem.append(trElem);
     }
+    
+    let pageNave = document.getElementById('pagesDetails');
+    pageNave.innerHTML = "";
+
+    let prPage = document.createElement('li');
+    let lastPage = document.createElement('li');
+    let aPrPage = document.createElement('a');
+    let aLastPage = document.createElement('a');
+  //  prPage.className = "page-item disabled";
+   // lastPage.className = "page-item";
+  //  aPrPage.className = "page-link"
+  //  aPrPage.addEventListener('click', changePage);
+  //  aLastPage.className = "page-link"
+  //  aPrPage.innerHTML = "Previous";
+ //   aLastPage.innerHTML = "Next";
+ //   aLastPage.addEventListener('click', changePage);
+    
+   // prPage.appendChild(aPrPage);
+  //  pageNave.appendChild(prPage);
+   let pageable = result.pageable;
+
+    for (let i = 0; i < result.totalPages; i++) {
+        let page = document.createElement('li');
+        let aPage = document.createElement('a');
+        if (i == pageable.pageNumber) {
+            page.className = "page-item disabled"; 
+        } else {
+        page.className = "page-item";
+        }
+        aPage.className = "page-link";
+        aPage.addEventListener('click', changePage);
+        aPage.innerHTML = i+1;
+        page.appendChild(aPage);
+        pageNave.appendChild(page);
+    }
+
+   // lastPage.appendChild(aLastPage);
+   // pageNave.appendChild(lastPage);
+
+    
+    console.log(pageable);
+    console.log(result.totalPages)
+
 }
